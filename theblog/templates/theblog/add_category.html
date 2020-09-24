@@ -1,0 +1,20 @@
+{% extends 'theblog/base.html' %}
+
+{% block title %}Add Blog Category {% endblock %}
+
+
+{% block content %}
+<br><br>
+ {% if user.is_authenticated %}
+<h1>Add Category</h1>
+<div class="form-group">
+<form method='POST'>
+	{% csrf_token %}
+	{{form.as_p}}
+	<button class="btn btn-secondary">Post</button>
+</form>
+</div>
+{% else %}
+	You're not allowed here! and (you know it...)
+{% endif %}
+{% endblock %}

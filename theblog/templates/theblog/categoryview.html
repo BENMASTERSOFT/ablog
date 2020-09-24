@@ -1,0 +1,28 @@
+{% extends 'theblog/base.html' %}
+
+{% block title %} {{category}} {% endblock %}
+
+
+{% block content %}
+{% if posts %}
+		<br><br>
+		<h1>{{category}}</h1>
+		<ul>
+		{% for post in posts %}
+
+			<li> <a href="{% url 'article_details' post.pk %}">{{post.title}}</a> 
+			 {{post.author.first_name}} {{post.author.last_name}} - <a href="{% url 'update_post' post.pk  %}"> 
+				 {% if user.is_authenticated %}
+				<small>Edit</small></a> - <a href="{% url 'delete_post' post.pk  %}"> <small>Delete</small></a>
+				{% endif %}
+				<br/>  
+			{{post.body|safe|slice:":100"}}...</li>
+
+		{% endfor %}
+		</ul>
+		<br/><br/>
+		<a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
+{% else %}
+	<h2>Sorry! This page do not exist!</h2>
+{% endif %}
+{% endblock %}
